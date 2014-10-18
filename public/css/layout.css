@@ -1,0 +1,66 @@
+.container-fluid{
+	background-color: #333333;
+}
+#hero-unit{
+	/*background-image: url('../images/banhmi.jpg');*/
+	width: 1349px;
+	height: 664px;
+}
+#menu-bar{
+	margin-top: 150px;
+	margin-left: 200px;
+}
+#welcom-bar{
+	margin-left: 200px;
+}
+#search-bar{
+	margin-left: 250px;
+	margin-top: 20px;
+}
+.cut{
+	width: 448px;
+	margin:0 auto;
+	height: 73px;
+}
+.cut-block{
+	width: 100%;
+	border-top: 2px gray solid;
+	border-bottom: 2px gray solid;
+}
+.cut-block-content{
+	margin-left: 164px;
+	color: #ffffff;
+}
+.items{
+	margin: 0 auto;
+	width: 1349px;
+	margin-left: 58px;
+}
+.item{
+	height: 180px;
+	padding-left: 0px;
+	margin:10px;
+	background-color: lavender;
+}
+.item .pic{
+	width: 224px;
+	height: 180px;
+}
+#hero-unit-content{	
+	position: absolute;
+	top: 0px;
+	left: 48px;
+	width: 1185px;
+}
+#search-bar #btn-search{
+	margin-left: 10px;
+}
+#recipe{
+	/*background-image: url('../images/recipe_banner.jpg');*/
+	background-color: #fafafa;
+	padding-top: 25px;
+	width: 1349px;
+	height: 640px;
+}
+/*End of layout
+*/
