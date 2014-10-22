@@ -3,138 +3,184 @@
 	<meta charset="utf-8" />
 <head>
 	<title>Vivu Ha Noi</title>
-	{{HTML::style('/css/bootstrap.min.css')}}
-	{{HTML::style('/css/layout.css')}}	
-	{{HTML::script('/js/jssor.js')}}
-	{{HTML::script('/js/jssor.slider.js')}}
-	{{HTML::script('/js/jquery-2.1.1.min.js')}}
-	<script>
-        jssor_slider1_starter = function (containerId) {
-            var options = {
-                $DragOrientation: 3,                                //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
-                $ArrowNavigatorOptions: {                       //[Optional] Options to specify and enable arrow navigator or not
-                    $Class: $JssorArrowNavigator$,              //[Requried] Class to create arrow navigator instance
-                    $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
-                    $AutoCenter: 0,                                 //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
-                    $Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
-                }
-            };
-
-            var jssor_slider1 = new $JssorSlider$(containerId, options);
-        };
-    </script>
-    <script type="text/javascript">    	
-    	
-    </script>
+	{{HTML::style('/css/bootstrap.min.css')}}	
+	{{HTML::style('/css/carousel.css')}}
+	{{HTML::script('/js/jquery.min.js')}}
+	{{HTML::script('/js/bootstrap.min.js')}}	
+	
 </head>
 <body>
-	<div class="container-fluid">
-		<div id="header" class="row"></div>
-		<section id="hero-unit" class="row">
-			<div id="slider1_container" style="position: relative; top: 0px; left: 0px; width:1349px;
-        height: 664px; ">
-				<!-- Slides Container -->
-				<div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1349px; height: 664px;
-            overflow: hidden;">
-					<div>{{HTML::image('/images/banhmi.jpg')}}</div>
-					<div>{{HTML::image('/images/canhga.jpg')}}</div>
-					<div>{{HTML::image('/images/thaibg.jpg')}}</div>
-					<div>{{HTML::image('/images/titebild.jpg')}}</div>
-				</div>
+	<div class="navbar-wrapper">
+      <div class="container">
 
-				<!-- Arrow Navigator Skin Begin -->
-				<style>
-            /* jssor slider arrow navigator skin 03 css */
-            /*
-            .jssora03l              (normal)
-            .jssora03r              (normal)
-            .jssora03l:hover        (normal mouseover)
-            .jssora03r:hover        (normal mouseover)
-            .jssora03ldn            (mousedown)
-            .jssora03rdn            (mousedown)
-            */
-            .jssora03l, .jssora03r, .jssora03ldn, .jssora03rdn
-            {
-            	position: absolute;
-            	cursor: pointer;
-            	display: block;
-                background: url(../public/images/a03.png) no-repeat;
-                overflow:hidden;
-            }
-            .jssora03l { background-position: -3px -33px; }
-            .jssora03r { background-position: -63px -33px; }
-            .jssora03l:hover { background-position: -123px -33px; }
-            .jssora03r:hover { background-position: -183px -33px; }
-            .jssora03ldn { background-position: -243px -33px; }
-            .jssora03rdn { background-position: -303px -33px; }
-        </style>
-				<!-- Arrow Left -->
-				<span u="arrowleft" class="jssora03l" style="width: 55px; height: 55px; top: 600px; left: 8px;"></span>
-				<!-- Arrow Right -->
-				<span u="arrowright" class="jssora03r" style="width: 55px; height: 55px; top: 600px; right: 8px"></span>
-				<!-- Arrow Navigator Skin End -->
-				<a style="display: none" href="http://www.jssor.com">jquery slider example</a>
-				<!-- Trigger -->
-				<script>jssor_slider1_starter('slider1_container');</script>
-			</div>
-			<div id="hero-unit-content" class="">
-				<div id="menu-bar" class="navbar">
-					<div class="nav-inner">
-						<ul class="nav">
-							<li class=" col-md-1">
-								<a tabindex="-1" href="#">Action</a>
-							</li>
-							<li class=" col-md-2">
-								<a tabindex="-1" href="#">Another action</a>
-							</li>
-							<li class=" col-md-2">
-								<a tabindex="-1" href="#">Something else here</a>
-							</li>
-							<li class="divider" class=" col-md-2"></li>
-							<li class=" col-md-2">
-								<a tabindex="-1" href="#">Separated link</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div id="welcom-bar" class="">
-					<blockquote class="col-md-4">
-						<h1>Lorem ipsum dolosit amet</h1>
-						<footer>
-							Someone famous in
-							<cite title="Source Title">Source Title</cite>
-						</footer>
-					</blockquote>
-				</div>
-				<div class="clearfix"></div>
-				<div id="search-bar" class="">
-					<form action="#" class="form-inline col-md-4">
-						<input type="text" class="form-control" placeholder="Malice in wonderland !"/>						
-						<input type="submit" id="btn-search" class="btn btn-default" value="Search"/>
-					</form>
-				</div>
-			</div>
-			<!--End of hero-unit-content-->
-		</section>
-		<!--End of hero-unit -->		
-		<div class="row cut">
-			<h1 class="cut-block">
-				<span class="cut-block-content">Recipe</span>
-			</h1>
-		</div>
-		<section id="recipe" class="row">
-			@yield('recipe')
-		</section><!--End of recipe-->
-		<div class="row cut">
-			<h1 class="cut-block">
-				<span class="cut-block-content">Place</span>
-			</h1>
-		</div>
-		<section id="place" class="row">
-			@yield('place')
-		</section>
-		<div id="reference" class="row"></div>
-		<div id="footer" class="row"></div>	
-	</div>
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Project name</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li class="dropdown-header">Nav header</li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active">
+          {{HTML::image('/images/banhmi.jpg')}}
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Example headline.</h1>
+              <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          {{HTML::image('/images/canhga.jpg')}}
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Another example headline.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          {{HTML::image('/images/thaibg.jpg')}}
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>One more for good measure.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div><!-- /.carousel -->
+
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+          <h2>Heading</h2>
+          <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+          <h2>Heading</h2>
+          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+          <h2>Heading</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>    
 </body>
 </html>
