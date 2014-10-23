@@ -16,6 +16,20 @@ Route::get('/', function()
 	$topics = Topic::all();
 	return View::make('index')->with('topics',$topics);
 });
+Route::get('/index', function()
+{
+	$topics = Topic::all();
+	return View::make('index')->with('topics',$topics);
+});
+Route::get('/details', function()
+{
+	
+	return View::make('details');
+});
+Route::get('/about', function()
+{	
+	return View::make('about');
+});
 Route::get('/dev',function(){			
 	var_dump(Topic::find(1)->getAllPicPath->first()->imgPath);		
 	var_dump(DB::getQueryLog());
