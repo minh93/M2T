@@ -31,7 +31,7 @@
                 <li class="divider"></li>
                 <li><a href="#">One more separated link</a></li>
               </ul>
-            </li>
+            </li>            
           </ul>      
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -105,15 +105,42 @@
       </h1>
   </div>
 <div class="items container">
-	<div class="col-md-2 item" ></div>
-	<div class="col-md-2 item" ></div>
-	<div class="col-md-2 item" ></div>
-	<div class="col-md-2 item" ></div>
-	<div class="col-md-2 item" ></div>
-	<div class="col-md-2 item" ></div>
-	<div class="col-md-2 item" ></div>
-	<div class="col-md-2 item" ></div>
-	<div class="col-md-2 item" ></div>	
+	<div class="col-md-2 item" >
+    <img class="pic" src="{{Request::url()}}/images/post-img/veget.jpg"/> 
+    <div class="pic-des"> 
+      <p>Lorem ipsum dolosit amet</p>
+    </div>
+  </div>
+	<div class="col-md-2 item" >
+    <img class="pic" src="{{Request::url()}}/images/post-img/veget.jpg"/> 
+    <div class="pic-des"> 
+      <p>Lorem ipsum dolosit amet</p>
+    </div>
+  </div>
+  <div class="col-md-2 item" >
+    <img class="pic" src="{{Request::url()}}/images/post-img/veget.jpg"/> 
+    <div class="pic-des"> 
+      <p>Lorem ipsum dolosit amet</p>
+    </div>
+  </div>
+  <div class="col-md-2 item" >
+    <img class="pic" src="{{Request::url()}}/images/post-img/veget.jpg"/> 
+    <div class="pic-des"> 
+      <p>Lorem ipsum dolosit amet</p>
+    </div>
+  </div>
+  <div class="col-md-2 item" >
+    <img class="pic" src="{{Request::url()}}/images/post-img/veget.jpg"/> 
+    <div class="pic-des"> 
+      <p>Lorem ipsum dolosit amet</p>
+    </div>
+  </div>
+  <div class="col-md-2 item" >
+    <img class="pic" src="{{Request::url()}}/images/post-img/veget.jpg"/> 
+    <div class="pic-des"> 
+      <p>Lorem ipsum dolosit amet</p>
+    </div>
+  </div>
 </div>
 @stop
 @section('place-region')

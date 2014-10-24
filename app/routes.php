@@ -16,7 +16,7 @@ Route::get('/', function()
 	$topics = Topic::all();
 	return View::make('index')->with('topics',$topics);
 });
-Route::get('/index', function()
+Route::get('index', function()
 {
 	$topics = Topic::all();
 	return View::make('index')->with('topics',$topics);
