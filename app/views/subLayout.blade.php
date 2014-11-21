@@ -23,8 +23,9 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
     @yield('detailed-item')
     <!-- Wrap related content. -->
+    @yield('map')
     @yield('related')
-    <footer id="footer" class="container">
+    <footer id="footer" class="container-fluid">
     <div class="row">
         <p class="pull-right">            
             <a href="#"><span class="glyphicon glyphicon-chevron-up"></span></a>
