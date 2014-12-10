@@ -80,14 +80,79 @@
       <div class="container"></div>
     </div>
     <div class="item">
-      {{HTML::image('/images/buffetrestaurant.jpg')}}
+      <!-- {{HTML::image('/images/buffetrestaurant.jpg')}} -->
+      <div style="width: 1349px; height: 500px; background-color: red">        
+        <div id="gmap_canvas" style="height:500px;width:auto;"></div>
+        <style>#gmap_canvas img{max-width:none;background:none}</style>
+        <script type="text/javascript"> 
+          function initialize() {
+            var myLatlng = new google.maps.LatLng(21.0226967,105.8369637);
+            var mapOptions = {
+              zoom: 16,
+              center:  myLatlng,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            };            
+
+            var map = new google.maps.Map(document.getElementById('gmap_canvas'),
+            mapOptions);            
+            // Try W3C Geolocation (Preferred)
+            if(navigator.geolocation) {
+              browserSupportFlag = true;
+              navigator.geolocation.getCurrentPosition(function(position) {
+                initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+                var marker = new google.maps.Marker({
+                  position: initialLocation,
+                  title:"Bạn đang ở đây!"
+                });
+                map.setCenter(initialLocation);
+                marker.setMap(map);
+              }, function() {
+                handleNoGeolocation(browserSupportFlag);
+              });
+            }else {
+              browserSupportFlag = false;
+              handleNoGeolocation(browserSupportFlag);
+            }
+            function handleNoGeolocation(errorFlag) {
+              if (errorFlag == true) {
+                alert("Không tìm ra vị trí.");
+                initialLocation = myLatlng;
+              } else {
+                alert("Bạn ở sao Hỏa à! Tôi để bạn ở Hà Nội nhé :)");
+                initialLocation = myLatlng;
+              }
+              map.setCenter(initialLocation);
+            }
+            //Get all place and draw to map
+            $.getJSON("dev/allplace", function (data) {
+              if (data) {                
+                  $.each(data, function (index, object) {
+                      //alert(object.tName)
+                  });
+              } else {
+
+              }
+            });
+          }// End load script
+
+          function loadScript() {
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&' +
+          'callback=initialize';
+          document.body.appendChild(script);
+          }
+
+          window.onload = loadScript;
+        </script>
+      </div>
       <div class="container"></div>
     </div>
   </div>
   <div class="carousel-caption">
-    <form role="form" class="form-inline">
+    <form role="form" class="form-inline" method="GET" action="searchResults">
       <div class="form-group">
-        <input id="autocomplete-ajax" type="text input" class="form-control" placeholder="Tìm kiếm..."></div>
+        <input id="autocomplete-ajax" name='query' type="text input" class="form-control" placeholder="Tìm kiếm..."></div>
       <button id="search-button" type="submit" class="btn btn-default">
         <span class="glyphicon glyphicon-search"></span>
       </button>
@@ -108,107 +173,40 @@
 </div>
 <!-- /.carousel -->
 @stop
-@section('recipe-region-dev')
-<div class="row-cut">
-  <h1 class="cut-block">
-    <span class="cut-block-content">Recipe</span>
-  </h1>
-</div>
-<div class="items container">
-  @foreach($topics as $topic)
-  <div class="col-md-1 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/{{$topic->getAllPicPath->first()->imgPath}}"/></div>
-  @endforeach
-</div>
-@stop
 @section('recipe-region')
 <div class="row-cut">
   <h1 class="cut-block">
-    <span class="cut-block-content">Thực đơn nổi bật</span>
+    Món ngon nổi bật
   </h1>
 </div>
 <div class="items container">
+  @foreach($recipeTopics as $topic)
   <div class="col-md-2 item" >
-    <img class="pic img-responsive" src="{{URL::to('/')}}/images/post-img/veget.jpg"/>
+    <img class="pic" src="{{URL::to('/')}}/images/post-img/{{$topic->
+    getAllPicPath->first()->imgPath}}"/>
     <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
+      <p>{{$topic->tName}}</p>
     </div>
   </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/veget.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/veget.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/veget.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/veget.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/veget.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
+  @endforeach
 </div>
 @stop
 @section('place-region')
 <div class="row-cut">
   <h1 class="cut-block">
-    <span class="cut-block-content">Địa chỉ thú vị</span>
+    Địa chỉ thú vị
   </h1>
 </div>
 <div class="items container">
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/hoguom.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
+   @foreach($placeTopics as $topic)
+    <div class="col-md-2 item" >
+      <img class="pic" src="{{URL::to('/')}}/images/post-img/{{$topic->
+      getAllPicPath->first()->imgPath}}"/>
+      <div class="pic-des">
+        <p>{{$topic->tName}}</p>
+      </div>
     </div>
-  </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/hoguom.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/hoguom.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/hoguom.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/hoguom.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/hoguom.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
+  @endforeach  
 </div>
 @stop
 @section('impression-region')
@@ -251,26 +249,45 @@
 <!-- /.row -->
 @stop
 @section('feature-region')
-<hr class="featurette-divider">
 <div class="row-cut">
   <h1 class="cut-block">
-    <span class="cut-block-content">Hôm nay có gì</span>
+    Hôm nay có gì
   </h1>
 </div>
+@foreach($newestTopics as $topic)
 <div class="row featurette">
   <div class="col-md-7">
     <h2 class="featurette-heading">
-      Bất ngờ với những món pizza
-      <span class="text-muted">đến từ Nhật Bản.</span>
+      {{$topic->tName}}
     </h2>
     <p class="lead">
-      Người Nhật cũng vậy. Xứ sở Phù Tang cũng rất yêu thích món bánh đặc biệt do người Ý sáng tạo ra này. Cửa hàng bánh Pizza Aoki, tại tỉnh Aichi, Nhật Bản, đã tạo ra hàng loạt chiếc bánh pizza thú vị trong vài năm qua.
+      {{$topic->tDescription}}
     </p>
+    <div class="comment-box">
+      <div class="comment-box-header">
+      <h4>Cộng đồng</h4>
+      </div>
+      <table class="table table-striped comment-list">
+        <tr>
+          <td>Ngon thế này cơ á <br/></td><td>bởi <a>PhamMinh</a></td>
+        </tr>
+        <tr>
+          <td>Ngon thế này cơ á</td><td>bởi <a>PhamMinh</a></td>
+        </tr>
+      </table>
+      <div class="comment-box-new">
+        <form>
+          <input type="text" class="form-control comment-new" />
+          <input type="submit" class="btn btn-default comment-btn" value="Chia sẻ" /> bởi <a>ẩn danh</a>
+        </form>
+      </div>
+    </div>
   </div>
   <div class="col-md-5">
-    <img class="featurette-image img-responsive" src="{{URL::to('/')}}/images/feature/piza.jpg"></div>
+    <img class="pic" src="{{URL::to('/')}}/images/post-img/{{$topic->getAllPicPath->first()->imgPath}}"/>
+  </div>
 </div>
-
+@endforeach
 <hr class="featurette-divider">
 
 <div class="row featurette">
@@ -284,6 +301,25 @@
     <p class="lead">
       Với nhiều địa điểm rải rác xung quanh Grand Palace trong thành phố Luxembourg, Chocolate House là một nơi không thể bỏ qua nếu bạn đặt chân đến đất nước nhỏ bé xinh đẹp này. Điểm đặc biệt nhất tại Chocolate House là bạn có thể chọn "chocolate spoon" - một chiếc thìa gỗ đang cắm sẵn vào một miếng chocolate và có nhiều hương vị cũng như chủng loại khác nhau. Sau khi bạn đã chọn xong "chocolate spoon" cho mình, bạn sẽ được phục vụ mang đến một cốc sữa nóng và tất cả những gì còn lại là nhúng chiếc thìa vào cốc sữa và ngắm nhìn "niềm hạnh phúc" của bạn tan chảy.
     </p>
+    <div class="comment-box">
+      <div class="comment-box-header">
+      <h4>Cộng đồng</h4>
+      </div>
+      <table class="table table-striped comment-list">
+        <tr>
+          <td>Ngon thế này cơ á <br/></td><td>bởi <a>PhamMinh</a></td>
+        </tr>
+        <tr>
+          <td>Ngon thế này cơ á</td><td>bởi <a>PhamMinh</a></td>
+        </tr>
+      </table>
+      <div class="comment-box-new">
+        <form>
+          <input type="text" class="form-control comment-new" />
+          <input type="submit" class="btn btn-default comment-btn" value="Chia sẻ" /> bởi <a>ẩn danh</a>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -298,24 +334,28 @@
     <p class="lead">
       Quán lẩu bò mang tên Bò 68, nằm ở… 68 Lê Văn Hưu. Thoạt tiên, các bạn có thể sẽ hơi bất ngờ bởi nhìn quán lẩu này… chẳng giống quán lẩu chút nào. Quán khiến chúng ta nghĩ đến những tiệm bít tết ngon lành với lối trang trí đơn giản, trẻ trung và gọn gàng. Chưa kể đến việc, quán có không gian quán rộng rãi, phù hợp để nhiều nhóm bạn có thể đến lai rai mà chẳng sợ phải chen chúc, khó chịu vì chật hẹp.
     </p>
+    <div class="comment-box">
+      <div class="comment-box-header">
+      <h4>Cộng đồng</h4>
+      </div>
+      <table class="table table-striped comment-list">
+        <tr>
+          <td>Ngon thế này cơ á <br/></td><td>bởi <a>PhamMinh</a></td>
+        </tr>
+        <tr>
+          <td>Ngon thế này cơ á</td><td>bởi <a>PhamMinh</a></td>
+        </tr>
+      </table>
+      <div class="comment-box-new">
+        <form>
+          <input type="text" class="form-control comment-new" />
+          <input type="submit" class="btn btn-default comment-btn" value="Chia sẻ" /> bởi <a>ẩn danh</a>
+        </form>
+      </div>
+    </div>
   </div>
   <div class="col-md-5">
     <img class="featurette-image img-responsive" src="{{URL::to('/')}}/images/feature/ngon-la-voi-mon-lau-bo-nhung-chanh-leo.jpg"></div>
 </div>
 <hr class="featurette-divider">
-@stop
-@section('map')
-<div class="row-cut">
-  <h1 class="cut-block">
-    <span class="cut-block-content">Địa điểm gần bạn</span>
-  </h1>
-</div>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<div class="container">
-<div class="row" style="overflow:hidden;height:500px;width:auto;">
-  <div id="gmap_canvas" style="height:500px;width:auto;"></div>
-  <style>#gmap_canvas img{max-width:none!important;background:none!important}</style>  
-</div>
-</div>
-<script type="text/javascript"> function init_map(){var myOptions = {zoom:14,center:new google.maps.LatLng(21.0226967,105.8369637),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById("gmap_canvas"), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(21.0226967,105.8369637)});infowindow = new google.maps.InfoWindow({content:"<b>Hà Nội</b>" });google.maps.event.addListener(marker, "click", function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);</script>
 @stop

@@ -60,72 +60,27 @@
 <div id="mini-banner">{{HTML::image('/images/banhmi_minibanner.jpg')}}</div>
 @stop
 @section('detailed-item')
-<div class="row-cut">
-  <!-- <h1 class="cut-block">
-    <span class="cut-block-content">Gà rán sốt tiêu</span>
-  </h1> -->
-  <span class="cut-block">
-    <h1 class="cut-block-content">Gà rán sốt tiêu</h1>
-  </span>
-</div>
-<div id="detailed-item-container" class="container-fluid">
-  <div id="detailed-item" class="row">
-    <img id="detailed-image" src="{{URL::to('/')}}/images/detailed/chicken.jpg"/>    
-    <div class="container-fluid" id="detailed-item-layer">
-      <div class="col-md-8"></div>
-      <div id="detailed-item-left" class="col-md-4">
-      <h3>Sed ut perspiciatis</h3> 
-      <p>unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-      </div>
-    </div>    
-  </div>  
-</div>
-<br/>
-<br/>
-<div class="row-cut">
-  <h1 class="cut-block">
-    <span class="cut-block-content">Cộng đồng</span>
-  </h1>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-8" id="user-comment">
-      <h4>Nhận xét</h4>
-      <div id="list-comment">
-        <p>unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
-        <p>unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
-        <p>unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
-        <p>unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
-      </div>
-    </div>
-    <div class="col-md-4" id="rating">
-      <h3 >Đánh giá</h3>
-      <div id="rating-content">
-        <div class="rating-item">
-          <div class="rating-text">Giá thành</div>
-          <span class="glyphicon glyphicon-credit-card"></span>
-          <p>7.1</p>
-        </div>
-        <div class="rating-item">
-          <div class="rating-text">Giá thành</div>
-          <span class="glyphicon glyphicon-hand-up"></span>
-          <p>7.1</p>
-        </div>
-        <div class="rating-item">
-          <div class="rating-text">Giá thành</div>
-          <span class="glyphicon glyphicon-bullhorn"></span>
-          <p>7.1</p>
-        </div>
-      </div>
+  <div class="row-cut">
+    <h1 class="cut-block">
+      Kết quả tìm kiếm
+    </h1>
+  </div>
+  <div class="container items">
+    @foreach($topics as $topic)
+    <div class="col-md-2 item" >
+    <img class="pic" src="{{URL::to('/')}}/images/post-img/{{$topic->
+    getAllPicPath->first()->imgPath}}"/>
+    <div class="pic-des">
+      <p>{{$topic->tName}}</p>
     </div>
   </div>
-</div>
+    @endforeach
+  </div>
 @stop
 @section('related')
 <div class="row-cut">
   <h1 class="cut-block">
-    <span class="cut-block-content">Có liên quan</span>
+    Có liên quan
   </h1>
 </div>
 <div class="items container">

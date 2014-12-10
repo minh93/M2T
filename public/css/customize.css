@@ -74,6 +74,7 @@
 	margin: 0 auto;
 	width: 310px;
 	padding: 10px;	
+	text-align: center;
 }
 /*Detailed view*/
 #mini-banner{
@@ -122,6 +123,31 @@
 	margin-top: 20px;
 	background-color: #313131;
 	height: 100px;
+}
+/*Comment box*/
+.comment-box{
+
+}
+
+.comment-box > .comment-box-header{
+	height: 44px;
+	background: gray;
+	padding: 5px;
+	width: 80%;
+	text-align: center;
+	color: #fafafa;
+}
+
+.comment-box > .comment-list{
+	width: 70%;
+}
+
+.comment-new{
+	width: 60%;
+}
+
+.comment-btn{
+	margin-top: 5px;
 }
 /*Auto complete */
 .autocomplete-suggestions { border: 1px solid #999; background: #FFF; cursor: default; overflow: auto; -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); }

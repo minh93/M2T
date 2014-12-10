@@ -5,5 +5,9 @@ class Topic extends Eloquent {
 
 	public function getAllPicPath(){
 		return $this->hasMany('PicDescription','tID');
+	}
+
+	public function getAllComment(){
+		return $this->hasMany('Comment','tID');
 	}	
 }

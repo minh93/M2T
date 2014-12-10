@@ -22,8 +22,9 @@
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
     @yield('detailed-item')
-    <!-- Wrap related content. -->
+    <!-- Map related content. -->
     @yield('map')
+    <!-- Wrap related content. -->
     @yield('related')
     <footer id="footer" class="container-fluid">
     <div class="row">

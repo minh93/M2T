@@ -24,8 +24,6 @@
         @yield('impression-region')
         <!-- START THE FEATURETTES -->
         @yield('feature-region')
-
-        @yield('map')
         <!-- Recipe region
     ================================================== -->
         @yield('recipe-region')
@@ -55,8 +53,13 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     {{HTML::script('/js/jquery.autocomplete.js')}} 
-    {{HTML::script('/js/jquery.mockjax.js')}} 
-    {{HTML::script('/js/countries.js')}} 
-    {{HTML::script('/js/demo.js')}}
+    <script type="text/javascript">
+        $('#autocomplete-ajax').autocomplete({
+            serviceUrl: 'dev/allquery',
+            onSelect: function (suggestion) {
+                //Do nothing
+            }
+        });
+    </script>
 </body>
 </html>
