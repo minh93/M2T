@@ -43,6 +43,7 @@ Route::get('searchResults/{query?}', function(){
 */
 Route::get('/dev/allplace',function()
 {
+	// FIXME: Return nearest place
 	$topics = Topic::all();
 	return Response::json($topics);
 });
@@ -52,14 +53,9 @@ Route::get('/dev/allquery{query?}',function()
 	$query = Input::get('query');
 
 	$queries = Query::all();
-	$queries = $queries -> filter(function($item)
+	$queries = $queries -> filter(function($item) use (&$query)
 	{
-		if (Input::has('query'))
-		{
-		    $query = Input::get('query'); //Nhu shit 
-		}else{
-			$query = "";
-		}		
+		
 		if(strpos($item->value, $query) !== false)
 			return true;
 		else

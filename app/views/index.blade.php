@@ -67,7 +67,7 @@
     <li data-target="#myCarousel" data-slide-to="3"></li>
   </ol>
   <div class="carousel-inner">
-    <div class="item active">
+    <div class="item">
       {{HTML::image('/images/banhmi.jpg')}}
       <div class="container"></div>
     </div>
@@ -79,9 +79,9 @@
       {{HTML::image('/images/thaibg.jpg')}}
       <div class="container"></div>
     </div>
-    <div class="item">
+    <div class="item active">
       <!-- {{HTML::image('/images/buffetrestaurant.jpg')}} -->
-      <div style="width: 1349px; height: 500px; background-color: red">        
+      <div style="width: 1349px; height: 500px; background-color: red">
         <div id="gmap_canvas" style="height:500px;width:auto;"></div>
         <style>#gmap_canvas img{max-width:none;background:none}</style>
         <script type="text/javascript"> 
@@ -127,7 +127,31 @@
             $.getJSON("dev/allplace", function (data) {
               if (data) {                
                   $.each(data, function (index, object) {
-                      //alert(object.tName)
+                    var contentString = '<div id = "markerContent">'+
+                      '<p>' + object.tName + '</p>' + '</div>';
+                    
+                    var image = {url:'{{URL::to('/')}}/images/icon/yellow_pin.png',                      
+                        scaledSize: new google.maps.Size(50, 50),                        
+                        origin: new google.maps.Point(0,0),                        
+                        anchor: new google.maps.Point(0, 32)};
+                    var myLatLng = new google.maps.LatLng(object.tLat, object.tLong);
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString,
+                         maxWidth: 100
+                    });
+
+                    var foodMarker = new google.maps.Marker({
+                        position: myLatLng,
+                        map: map,
+                        icon: image,
+                        title: object.tName                        
+                    });
+
+                    google.maps.event.addListener(foodMarker, 'click', function() {
+                    infowindow.open(map,foodMarker);
+                    });
+
                   });
               } else {
 
@@ -175,9 +199,7 @@
 @stop
 @section('recipe-region')
 <div class="row-cut">
-  <h1 class="cut-block">
-    Món ngon nổi bật
-  </h1>
+  <h1 class="cut-block">Món ngon nổi bật</h1>
 </div>
 <div class="items container">
   @foreach($recipeTopics as $topic)
@@ -193,20 +215,18 @@
 @stop
 @section('place-region')
 <div class="row-cut">
-  <h1 class="cut-block">
-    Địa chỉ thú vị
-  </h1>
+  <h1 class="cut-block">Địa chỉ thú vị</h1>
 </div>
 <div class="items container">
-   @foreach($placeTopics as $topic)
-    <div class="col-md-2 item" >
-      <img class="pic" src="{{URL::to('/')}}/images/post-img/{{$topic->
-      getAllPicPath->first()->imgPath}}"/>
-      <div class="pic-des">
-        <p>{{$topic->tName}}</p>
-      </div>
+  @foreach($placeTopics as $topic)
+  <div class="col-md-2 item" >
+    <img class="pic" src="{{URL::to('/')}}/images/post-img/{{$topic->
+    getAllPicPath->first()->imgPath}}"/>
+    <div class="pic-des">
+      <p>{{$topic->tName}}</p>
     </div>
-  @endforeach  
+  </div>
+  @endforeach
 </div>
 @stop
 @section('impression-region')
@@ -250,42 +270,50 @@
 @stop
 @section('feature-region')
 <div class="row-cut">
-  <h1 class="cut-block">
-    Hôm nay có gì
-  </h1>
+  <h1 class="cut-block">Hôm nay có gì</h1>
 </div>
 @foreach($newestTopics as $topic)
 <div class="row featurette">
   <div class="col-md-7">
-    <h2 class="featurette-heading">
-      {{$topic->tName}}
-    </h2>
-    <p class="lead">
-      {{$topic->tDescription}}
-    </p>
+    <h2 class="featurette-heading">{{$topic->tName}}</h2>
+    <p class="lead">{{$topic->tDescription}}</p>
     <div class="comment-box">
       <div class="comment-box-header">
-      <h4>Cộng đồng</h4>
+        <h4>Cộng đồng</h4>
       </div>
       <table class="table table-striped comment-list">
+        @foreach($topic->getAllComment as $cItem)
         <tr>
-          <td>Ngon thế này cơ á <br/></td><td>bởi <a>PhamMinh</a></td>
+          <td>
+            Ngon thế này cơ á
+            <br/>
+          </td>
+          <td>
+            bởi
+            <a>PhamMinh</a>
+          </td>
         </tr>
+        @endforeach
         <tr>
-          <td>Ngon thế này cơ á</td><td>bởi <a>PhamMinh</a></td>
+          <td>Ngon thế này cơ á</td>
+          <td>
+            bởi
+            <a>PhamMinh</a>
+          </td>
         </tr>
       </table>
       <div class="comment-box-new">
         <form>
           <input type="text" class="form-control comment-new" />
-          <input type="submit" class="btn btn-default comment-btn" value="Chia sẻ" /> bởi <a>ẩn danh</a>
+          <input type="submit" class="btn btn-default comment-btn" value="Chia sẻ" />
+          bởi
+          <a>ẩn danh</a>
         </form>
       </div>
     </div>
   </div>
   <div class="col-md-5">
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/{{$topic->getAllPicPath->first()->imgPath}}"/>
-  </div>
+    <img class="pic" src="{{URL::to('/')}}/images/post-img/{{$topic->getAllPicPath->first()->imgPath}}"/></div>
 </div>
 @endforeach
 <hr class="featurette-divider">
@@ -303,20 +331,33 @@
     </p>
     <div class="comment-box">
       <div class="comment-box-header">
-      <h4>Cộng đồng</h4>
+        <h4>Cộng đồng</h4>
       </div>
       <table class="table table-striped comment-list">
         <tr>
-          <td>Ngon thế này cơ á <br/></td><td>bởi <a>PhamMinh</a></td>
+          <td>
+            Ngon thế này cơ á
+            <br/>
+          </td>
+          <td>
+            bởi
+            <a>PhamMinh</a>
+          </td>
         </tr>
         <tr>
-          <td>Ngon thế này cơ á</td><td>bởi <a>PhamMinh</a></td>
+          <td>Ngon thế này cơ á</td>
+          <td>
+            bởi
+            <a>PhamMinh</a>
+          </td>
         </tr>
       </table>
       <div class="comment-box-new">
         <form>
           <input type="text" class="form-control comment-new" />
-          <input type="submit" class="btn btn-default comment-btn" value="Chia sẻ" /> bởi <a>ẩn danh</a>
+          <input type="submit" class="btn btn-default comment-btn" value="Chia sẻ" />
+          bởi
+          <a>ẩn danh</a>
         </form>
       </div>
     </div>
@@ -336,20 +377,33 @@
     </p>
     <div class="comment-box">
       <div class="comment-box-header">
-      <h4>Cộng đồng</h4>
+        <h4>Cộng đồng</h4>
       </div>
       <table class="table table-striped comment-list">
         <tr>
-          <td>Ngon thế này cơ á <br/></td><td>bởi <a>PhamMinh</a></td>
+          <td>
+            Ngon thế này cơ á
+            <br/>
+          </td>
+          <td>
+            bởi
+            <a>PhamMinh</a>
+          </td>
         </tr>
         <tr>
-          <td>Ngon thế này cơ á</td><td>bởi <a>PhamMinh</a></td>
+          <td>Ngon thế này cơ á</td>
+          <td>
+            bởi
+            <a>PhamMinh</a>
+          </td>
         </tr>
       </table>
       <div class="comment-box-new">
         <form>
           <input type="text" class="form-control comment-new" />
-          <input type="submit" class="btn btn-default comment-btn" value="Chia sẻ" /> bởi <a>ẩn danh</a>
+          <input type="submit" class="btn btn-default comment-btn" value="Chia sẻ" />
+          bởi
+          <a>ẩn danh</a>
         </form>
       </div>
     </div>

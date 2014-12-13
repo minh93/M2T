@@ -1,6 +1,6 @@
 <?php
 
-class Topic extends Eloquent {
+class Comment extends Eloquent {
 	protected $table = 'comment';
 	
 }
