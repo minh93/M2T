@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li class="active">
-              <a href="index">Trang chủ</a>
+              <a href="{{URL::to('/')}}">Trang chủ</a>
             </li>
             <li>
               <a href="about">Liên hệ</a>
@@ -207,7 +207,14 @@
     <img class="pic" src="{{URL::to('/')}}/images/post-img/{{$topic->
     getAllPicPath->first()->imgPath}}"/>
     <div class="pic-des">
-      <p>{{$topic->tName}}</p>
+      <p>
+        {{$topic->tName}}
+        <a href="{{URL::to('/')}}/details?id={{$topic->
+          id}} ">
+          <span class="glyphicon glyphicon-circle-arrow-right"></span>
+        </a>
+      </p>
+      <div class="pic-des-price">{{$topic->tPrice}}đ</div>
     </div>
   </div>
   @endforeach
@@ -223,7 +230,13 @@
     <img class="pic" src="{{URL::to('/')}}/images/post-img/{{$topic->
     getAllPicPath->first()->imgPath}}"/>
     <div class="pic-des">
-      <p>{{$topic->tName}}</p>
+      <p>
+        {{$topic->tName}}
+        <a href="{{URL::to('/')}}/details?id={{$topic->
+          id}} ">
+          <span class="glyphicon glyphicon-circle-arrow-right"></span>
+        </a>
+      </p>
     </div>
   </div>
   @endforeach
@@ -272,11 +285,15 @@
 <div class="row-cut">
   <h1 class="cut-block">Hôm nay có gì</h1>
 </div>
-@foreach($newestTopics as $topic)
+@foreach($newestTopics as $key => $topic)
+@if( $key % 2 == 0)
 <div class="row featurette">
   <div class="col-md-7">
     <h2 class="featurette-heading">{{$topic->tName}}</h2>
     <p class="lead">{{$topic->tDescription}}</p>
+    <a href="{{URL::to('/')}}/details?id={{$topic->id}}">đọc thêm</a>
+    <br/>
+    <br/>
     <div class="comment-box">
       <div class="comment-box-header">
         <h4>Cộng đồng</h4>
@@ -285,22 +302,15 @@
         @foreach($topic->getAllComment as $cItem)
         <tr>
           <td>
-            Ngon thế này cơ á
+            {{$cItem->content}}
             <br/>
           </td>
           <td>
             bởi
-            <a>PhamMinh</a>
+            <a>{{$cItem->usrID}}</a>
           </td>
         </tr>
         @endforeach
-        <tr>
-          <td>Ngon thế này cơ á</td>
-          <td>
-            bởi
-            <a>PhamMinh</a>
-          </td>
-        </tr>
       </table>
       <div class="comment-box-new">
         <form>
@@ -313,103 +323,48 @@
     </div>
   </div>
   <div class="col-md-5">
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/{{$topic->getAllPicPath->first()->imgPath}}"/></div>
+    <img class="pic img-responsive" src="{{URL::to('/')}}/images/post-img/{{$topic->getAllPicPath->first()->imgPath}}"/></div>
 </div>
+@else
+<div class="row featurette">
+  <div class="col-md-5">
+    <img class="pic img-responsive" src="{{URL::to('/')}}/images/post-img/{{$topic->getAllPicPath->first()->imgPath}}"/></div>
+  <div class="col-md-7">
+    <h2 class="featurette-heading">{{$topic->tName}}</h2>
+    <p class="lead">{{$topic->tDescription}}</p>
+    <a href="{{URL::to('/')}}/details?id={{$topic->id}}">đọc thêm</a>
+    <br/>
+    <br/>
+    <div class="comment-box">
+      <div class="comment-box-header">
+        <h4>Cộng đồng</h4>
+      </div>
+      <table class="table table-striped comment-list">
+        @foreach($topic->getAllComment as $cItem)
+        <tr>
+          <td>
+            {{$cItem->content}}
+            <br/>
+          </td>
+          <td>
+            bởi
+            <a>{{$cItem->usrID}}</a>
+          </td>
+        </tr>
+        @endforeach
+      </table>
+      <div class="comment-box-new">
+        <form>
+          <input type="text" class="form-control comment-new" />
+          <input type="submit" class="btn btn-default comment-btn" value="Chia sẻ" />
+          bởi
+          <a>ẩn danh</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+<hr class="featurette-divider">
 @endforeach
-<hr class="featurette-divider">
-
-<div class="row featurette">
-  <div class="col-md-5">
-    <img class="featurette-image img-responsive" src="{{URL::to('/')}}/images/feature/chocolate-stout-pancakes-ftr.jpg"></div>
-  <div class="col-md-7">
-    <h2 class="featurette-heading">
-      Tận hưởng mùa đông
-      <span class="text-muted">với chocolate nóng.</span>
-    </h2>
-    <p class="lead">
-      Với nhiều địa điểm rải rác xung quanh Grand Palace trong thành phố Luxembourg, Chocolate House là một nơi không thể bỏ qua nếu bạn đặt chân đến đất nước nhỏ bé xinh đẹp này. Điểm đặc biệt nhất tại Chocolate House là bạn có thể chọn "chocolate spoon" - một chiếc thìa gỗ đang cắm sẵn vào một miếng chocolate và có nhiều hương vị cũng như chủng loại khác nhau. Sau khi bạn đã chọn xong "chocolate spoon" cho mình, bạn sẽ được phục vụ mang đến một cốc sữa nóng và tất cả những gì còn lại là nhúng chiếc thìa vào cốc sữa và ngắm nhìn "niềm hạnh phúc" của bạn tan chảy.
-    </p>
-    <div class="comment-box">
-      <div class="comment-box-header">
-        <h4>Cộng đồng</h4>
-      </div>
-      <table class="table table-striped comment-list">
-        <tr>
-          <td>
-            Ngon thế này cơ á
-            <br/>
-          </td>
-          <td>
-            bởi
-            <a>PhamMinh</a>
-          </td>
-        </tr>
-        <tr>
-          <td>Ngon thế này cơ á</td>
-          <td>
-            bởi
-            <a>PhamMinh</a>
-          </td>
-        </tr>
-      </table>
-      <div class="comment-box-new">
-        <form>
-          <input type="text" class="form-control comment-new" />
-          <input type="submit" class="btn btn-default comment-btn" value="Chia sẻ" />
-          bởi
-          <a>ẩn danh</a>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr class="featurette-divider">
-
-<div class="row featurette">
-  <div class="col-md-7">
-    <h2 class="featurette-heading">
-      Ngon lạ.
-      <span class="text-muted">lẩu bò nhúng chanh leo.</span>
-    </h2>
-    <p class="lead">
-      Quán lẩu bò mang tên Bò 68, nằm ở… 68 Lê Văn Hưu. Thoạt tiên, các bạn có thể sẽ hơi bất ngờ bởi nhìn quán lẩu này… chẳng giống quán lẩu chút nào. Quán khiến chúng ta nghĩ đến những tiệm bít tết ngon lành với lối trang trí đơn giản, trẻ trung và gọn gàng. Chưa kể đến việc, quán có không gian quán rộng rãi, phù hợp để nhiều nhóm bạn có thể đến lai rai mà chẳng sợ phải chen chúc, khó chịu vì chật hẹp.
-    </p>
-    <div class="comment-box">
-      <div class="comment-box-header">
-        <h4>Cộng đồng</h4>
-      </div>
-      <table class="table table-striped comment-list">
-        <tr>
-          <td>
-            Ngon thế này cơ á
-            <br/>
-          </td>
-          <td>
-            bởi
-            <a>PhamMinh</a>
-          </td>
-        </tr>
-        <tr>
-          <td>Ngon thế này cơ á</td>
-          <td>
-            bởi
-            <a>PhamMinh</a>
-          </td>
-        </tr>
-      </table>
-      <div class="comment-box-new">
-        <form>
-          <input type="text" class="form-control comment-new" />
-          <input type="submit" class="btn btn-default comment-btn" value="Chia sẻ" />
-          bởi
-          <a>ẩn danh</a>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-5">
-    <img class="featurette-image img-responsive" src="{{URL::to('/')}}/images/feature/ngon-la-voi-mon-lau-bo-nhung-chanh-leo.jpg"></div>
-</div>
-<hr class="featurette-divider">
 @stop

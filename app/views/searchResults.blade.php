@@ -19,10 +19,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li>
-              <a href="index">Trang chủ</a>
+              <a href="{{URL::to('/')}}">Trang chủ</a>
             </li>
             <li>
-              <a href="about">Liên hệ</a>
+              <a href="{{URL::to('/')}}/about">Liên hệ</a>
             </li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -51,7 +51,7 @@
             </li>
           </ul>
         </div>
-        <!-- /.navbar-collapse --> </div>        
+        <!-- /.navbar-collapse --> </div>
       <!-- /.container-fluid --> </nav>
   </div>
 </div>
@@ -60,80 +60,117 @@
 <div id="mini-banner">{{HTML::image('/images/banhmi_minibanner.jpg')}}</div>
 @stop
 @section('detailed-item')
-  <div class="row-cut">
-    <h1 class="cut-block">
-      Kết quả tìm kiếm
-    </h1>
-  </div>
-  <div class="container items">
-    @foreach($topics as $topic)
-    <div class="col-md-2 item" >
+<div class="row-cut">
+  <h1 class="cut-block">Kết quả tìm kiếm</h1>
+</div>
+<div class="container items">
+  @foreach($topics as $topic)
+  <div class="col-md-2 item" >
     <img class="pic" src="{{URL::to('/')}}/images/post-img/{{$topic->
     getAllPicPath->first()->imgPath}}"/>
     <div class="pic-des">
       <p>{{$topic->tName}}</p>
     </div>
   </div>
-    @endforeach
-  </div>
-@stop
-@section('related')
-<div class="row-cut">
-  <h1 class="cut-block">
-    Có liên quan
-  </h1>
-</div>
-<div class="items container">
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/veget.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/veget.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/veget.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/veget.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/veget.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
-  <div class="col-md-2 item" >
-    <img class="pic" src="{{URL::to('/')}}/images/post-img/veget.jpg"/>
-    <div class="pic-des">
-      <p>Lorem ipsum dolosit amet</p>
-    </div>
-  </div>
+  @endforeach
 </div>
 @stop
+
 @section('map')
 <div class="row-cut">
   <h1 class="cut-block">
     <span class="cut-block-content">Địa điểm gần bạn</span>
   </h1>
 </div>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <div class="container">
-<div class="row" style="overflow:hidden;height:500px;width:auto;">
   <div id="gmap_canvas" style="height:500px;width:auto;"></div>
-  <style>#gmap_canvas img{max-width:none!important;background:none!important}</style>  
+        <style>#gmap_canvas img{max-width:none;background:none}</style>
+        <script type="text/javascript"> 
+          function initialize() {
+            var myLatlng = new google.maps.LatLng(21.0226967,105.8369637);
+            var mapOptions = {
+              zoom: 16,
+              center:  myLatlng,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            };            
+
+            var map = new google.maps.Map(document.getElementById('gmap_canvas'),
+            mapOptions);            
+            // Try W3C Geolocation (Preferred)
+            if(navigator.geolocation) {
+              browserSupportFlag = true;
+              navigator.geolocation.getCurrentPosition(function(position) {
+                initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+                var marker = new google.maps.Marker({
+                  position: initialLocation,
+                  title:"Bạn đang ở đây!"
+                });
+                map.setCenter(initialLocation);
+                marker.setMap(map);
+              }, function() {
+                handleNoGeolocation(browserSupportFlag);
+              });
+            }else {
+              browserSupportFlag = false;
+              handleNoGeolocation(browserSupportFlag);
+            }
+            function handleNoGeolocation(errorFlag) {
+              if (errorFlag == true) {
+                alert("Không tìm ra vị trí.");
+                initialLocation = myLatlng;
+              } else {
+                alert("Bạn ở sao Hỏa à! Tôi để bạn ở Hà Nội nhé :)");
+                initialLocation = myLatlng;
+              }
+              map.setCenter(initialLocation);
+            }
+            //Get all place and draw to map
+            $.getJSON("{{URL::to('/')}}/dev/allplace", function (data) {
+              if (data) {                
+                  $.each(data, function (index, object) {
+                    var contentString = '<div id = "markerContent">'+
+                      '<p>' + object.tName + '</p>' + '</div>';
+                    
+                    var image = {url:'{{URL::to('/')}}/images/icon/yellow_pin.png',                      
+                        scaledSize: new google.maps.Size(50, 50),                        
+                        origin: new google.maps.Point(0,0),                        
+                        anchor: new google.maps.Point(0, 32)};
+                    var myLatLng = new google.maps.LatLng(object.tLat, object.tLong);
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString,
+                         maxWidth: 100
+                    });
+
+                    var foodMarker = new google.maps.Marker({
+                        position: myLatLng,
+                        map: map,
+                        icon: image,
+                        title: object.tName                        
+                    });
+
+                    google.maps.event.addListener(foodMarker, 'click', function() {
+                    infowindow.open(map,foodMarker);
+                    });
+
+                  });
+              } else {
+
+              }
+            });
+          }// End load script
+
+          function loadScript() {
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&' +
+          'callback=initialize';
+          document.body.appendChild(script);
+          }
+
+          window.onload = loadScript;
+        </script>
 </div>
-</div>
-<script type="text/javascript"> function init_map(){var myOptions = {zoom:14,center:new google.maps.LatLng(21.0226967,105.8369637),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById("gmap_canvas"), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(21.0226967,105.8369637)});infowindow = new google.maps.InfoWindow({content:"<b>Hà Nội</b>" });google.maps.event.addListener(marker, "click", function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);</script>
+<br/>
+<br/>
 @stop

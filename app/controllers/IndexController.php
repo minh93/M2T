@@ -8,9 +8,16 @@ class IndexController extends BaseController {
 	public function createView(){
 		$topics = Topic::all();	
 		
-		$newestTopics = Topic::all();
-		$placeTopics = Topic::all();
-		$recipeTopics = Topic::all();
+		$listTopic = Topic::orderBy('tCreateAt')->get();
+
+		$newestTopics = new \Illuminate\Database\Eloquent\Collection;		
+
+		for($i = 0; $i < 5; $i++){
+			$newestTopics->add($listTopic->get($i));
+		}
+
+		$placeTopics = Topic::where('tType', '=', '2')->get();
+		$recipeTopics = Topic::where('tType', '=', '1')->get();
 
 		$data = array(
 			'newest' => $newestTopics,

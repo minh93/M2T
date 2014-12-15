@@ -17,16 +17,15 @@ Route::get('index', function()
 	$topics = Topic::all();
 	return View::make('index')->with('topics',$topics);
 });
-Route::get('details{id?}', function()
-{
-	
-	return View::make('details');
-});
+Route::get('details{id?}', 'DetailController@showDetail');
+
 Route::get('about', function()
 {	
 	return View::make('about');
 });
+
 Route::get('searchResults/{query}', 'SearchController@listResult');
+
 Route::get('searchResults/{query?}', function(){
 	if (Input::has('query'))
 		{
@@ -63,4 +62,8 @@ Route::get('/dev/allquery{query?}',function()
 	});	
 	$result = array("query" => $query,"suggestions" => $queries);
 	return Response::json($result);
+});
+Route::get('/dev/testquery',function(){
+				
+	return var_dump(Query::where('data', '=', '#gaixinh')->get()->find(1)->value);
 });

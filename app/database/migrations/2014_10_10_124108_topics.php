@@ -19,7 +19,10 @@ class Topics extends Migration {
 			$table->double('tLong');
 			$table->integer('tType');
 			$table->text('tDescription');
-			$table->integer('tVote');
+			$table->integer('tVote_1');
+			$table->integer('tVote_2');
+			$table->integer('tVote_3');
+			$table->double('tPrice');			
 			$table->dateTime('tCreateAt');
 
 			$table->timestamps();
