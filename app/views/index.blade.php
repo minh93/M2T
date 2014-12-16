@@ -38,8 +38,13 @@
                 </li>
                 <li>
                   <a href="#">Khuyến mại</a>
-                </li>                
+                </li>
               </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>              
+              <a href="{{URL::to('/')}}/login/fb">Đăng nhập với&nbsp&nbsp<img src="{{URL::to('/')}}/images/icon/facebook.png"></a>
             </li>
           </ul>
         </div>
@@ -174,6 +179,7 @@
       </button>
     </form>
     <div id="search-trend">
+      <!-- FIXME:  -->
       <span class="label label-default">#giare</span>
       <span class="label label-default">#tiennghi</span>
       <span class="label label-default">#henho</span>
@@ -305,8 +311,10 @@
         @endforeach
       </table>
       <div class="comment-box-new">
-        <form>
-          <input type="text" class="form-control comment-new" />
+        <form action="{{URL::to('/')}}/dev/comment" method="GET">
+          <input type="hidden" name="tID" value="{{$topic->id}}" />
+          <input type="hidden" name="user" value="andanh" class="form-control comment-new" />
+          <input type="text" name="comment" class="form-control comment-new" />
           <input type="submit" class="btn btn-default comment-btn" value="Chia sẻ" />
           bởi
           <a>ẩn danh</a>

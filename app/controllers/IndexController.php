@@ -5,15 +5,16 @@ class IndexController extends BaseController {
 	*
 	*/
 
-	public function createView(){
-		$topics = Topic::all();	
-		
+	public function createView(){		
 		$listTopic = Topic::orderBy('tCreateAt')->get();
 
 		$newestTopics = new \Illuminate\Database\Eloquent\Collection;		
+		$collectionSize = $listTopic->count();
 
-		for($i = 0; $i < 5; $i++){
-			$newestTopics->add($listTopic->get($i));
+		foreach($listTopic as $item){
+			$rand = rand(1,2);
+			if($rand == 1)
+				$newestTopics->add($item);
 		}
 
 		$placeTopics = Topic::where('tType', '=', '2')->get();
