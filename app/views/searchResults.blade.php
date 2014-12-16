@@ -57,7 +57,7 @@
 </div>
 @stop
 @section('slide-banner')
-<div id="mini-banner">{{HTML::image('/images/banhmi_minibanner.jpg')}}</div>
+<div id="mini-banner">{{HTML::image('/images/search_minibanner.jpg')}}</div>
 @stop
 @section('detailed-item')
 <div class="row-cut">
