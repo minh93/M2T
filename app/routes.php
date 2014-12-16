@@ -12,12 +12,7 @@
 */
 
 Route::get('/', 'IndexController@createView');
-Route::get('index', function()
-{
-    $topics = Topic::all();
-    return View::make('index')->
-with('topics',$topics);
-});
+
 Route::get('details{id?}', 'DetailController@showDetail');
 
 Route::get('about', function()
@@ -31,11 +26,42 @@ Route::get('searchResults/{query?}', function(){
     if (Input::has('query'))
         {
             $query = Input::get('query'); 
-            return Redirect::action('SearchController@listResult', array('$query' => $query));
+            return Redirect::action('SearchController@listResult', array('$query' =>
+$query));
         }else{
             $query = "";
         }       
 });
+
+Route::get('/catalog/{catalogName}', function($catalogName){
+
+    $listTopics = new \Illuminate\Database\Eloquent\Collection;
+    switch ($catalogName) {
+        case 'catalog_01':
+            $pageName = 'Địa chỉ ăn uống';
+            $listTopics = Topic::where('tType', '=', 1)->get();            
+            break;
+        case 'catalog_02':
+            $pageName = 'Địa chỉ vui chơi';
+            $listTopics = Topic::where('tType', '=', 2)->get();            
+            break;
+        case 'catalog_03':
+            $pageName = 'Khám phá địa điểm xung quanh bạn';
+            $listTopics = Topic::where('tType', '=', 2)->get();            
+            break;
+        default:
+            return 'error';
+            break;
+    }
+
+    return View::make('catalog')->with('listTopics', $listTopics)->with('pageName', $pageName);
+});
+
+Route::get('/gallery', function(){
+    $pictures = PicDescription::all();
+    return View::make('gallery')->with('pictures', $pictures);
+});
+
 /*
 |
 |

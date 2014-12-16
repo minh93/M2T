@@ -31,7 +31,7 @@
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li>
-                  <a href="#">Hình ảnh</a>
+                  <a href="{{URL::to('/')}}/gallery">Hình ảnh</a>
                 </li>
                 <li>
                   <a href="#">Chuyên đề</a>
@@ -180,10 +180,9 @@
     </form>
     <div id="search-trend">
       <!-- FIXME:  -->
-      <span class="label label-default">#giare</span>
-      <span class="label label-default">#tiennghi</span>
-      <span class="label label-default">#henho</span>
-      <span class="label label-default">#tiepkhach</span>
+      @foreach($randomSearchKey as $item)
+      <a href="{{URL::to('/')}}/searchResults/{{$item->value}}"><span class="label label-default">{{$item->data}}</span></a>
+      @endforeach
     </div>
   </div>
   <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
@@ -212,7 +211,7 @@
           <span class="glyphicon glyphicon-circle-arrow-right"></span>
         </a>
       </p>
-      <div class="pic-des-price">{{$topic->tPrice}}đ</div>
+      <div class="pic-des-price">{{$topic->tPrice}}.000đ</div>
     </div>
   </div>
   @endforeach
@@ -235,6 +234,7 @@
           <span class="glyphicon glyphicon-circle-arrow-right"></span>
         </a>
       </p>
+      <div class="pic-des-price">{{$topic->tPrice}}.000đ</div>
     </div>
   </div>
   @endforeach
@@ -247,10 +247,10 @@
     <img class="img-circle" src="{{URL::to('/')}}/images/impression/sangchanh.jpg" alt="Generic placeholder image" style="width: 140px; height: 140px;">
     <h2>Ăn sang chảnh</h2>
     <p>
-      Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.
+      Nếu như bạn muốn tìm một nhà hàng, một quán café sang trọng, yên tĩnh để thưởng thức hương vị của những giọt cà phê, một ly sinh tố hay bổ sung năng lượng cho một ngày làm việc.. Nếu như bạn muốn tìm một không gian trang trọng, ấm cũng, gần gũi cho các buổi tiệc tùng, các cuộc liên hoan nhưng bạn còn phân vân!
     </p>
     <p>
-      <a class="btn btn-default" href="#" role="button">Xem thêm &raquo;</a>
+      <a class="btn btn-default" href="{{URL::to('/')}}/catalog/catalog_01" role="button">Xem thêm &raquo;</a>
     </p>
   </div>
   <!-- /.col-lg-4 -->
@@ -258,10 +258,10 @@
     <img class="img-circle" src="{{URL::to('/')}}/images/impression/kinhte.jpg" alt="Generic placeholder image" style="width: 140px; height: 140px;">
     <h2>Chơi hết mình</h2>
     <p>
-      Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.
+      Cùng với việc trải nghiệm các loại hình giải trí, du khách tới đây còn nhận được một “món quà” đầy ý nghĩa và đẹp mắt đó chính là những công trình thiết kế sang trọng, hiện đại mang đậm phong cách của các thành phố lớn trên thế giới.
     </p>
     <p>
-      <a class="btn btn-default" href="#" role="button">Xem thêm &raquo;</a>
+      <a class="btn btn-default" href="{{URL::to('/')}}/catalog/catalog_02" role="button">Xem thêm &raquo;</a>
     </p>
   </div>
   <!-- /.col-lg-4 -->
@@ -269,10 +269,10 @@
     <img class="img-circle" src="{{URL::to('/')}}/images/impression/khampha.jpg" alt="Generic placeholder image" style="width: 140px; height: 140px;">
     <h2>Tour khám phá</h2>
     <p>
-      Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+      Từ Hàng Vải chúng mình chỉ cần đi thêm vài trăm mét nữa là sẽ đến phố Bát Đàn. Con phố nhỏ yên bình này ngày xưa vốn được nhắc đến với những cửa hàng bán đồ gốm sứ gia dụng như bát đĩa, ấm chén, chum vại.. Ngày nay như nhiều phố cổ khác, Bát Đàn cũng không còn duy trì được nghề cũ nữa.
     </p>
     <p>
-      <a class="btn btn-default" href="#" role="button">Xem thêm &raquo;</a>
+      <a class="btn btn-default" href="{{URL::to('/')}}/catalog/catalog_03" role="button">Xem thêm &raquo;</a>
     </p>
   </div>
   <!-- /.col-lg-4 -->

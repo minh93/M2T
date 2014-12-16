@@ -22,7 +22,7 @@
               <a href="{{URL::to('/')}}">Trang chủ</a>
             </li>
             <li>
-              <a href="{{URL::to('/')}}/about">Liên hệ</a>
+              <a href="about">Liên hệ</a>
             </li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -31,23 +31,20 @@
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li>
-                  <a href="#">Action</a>
+                  <a href="{{URL::to('/')}}/gallery">Hình ảnh</a>
                 </li>
                 <li>
-                  <a href="#">Another action</a>
+                  <a href="#">Chuyên đề</a>
                 </li>
                 <li>
-                  <a href="#">Something else here</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                  <a href="#">Separated link</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                  <a href="#">One more separated link</a>
+                  <a href="#">Khuyến mại</a>
                 </li>
               </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>              
+              <a href="{{URL::to('/')}}/login/fb">Đăng nhập với&nbsp&nbsp<img src="{{URL::to('/')}}/images/icon/facebook.png"></a>
             </li>
           </ul>
         </div>
@@ -69,8 +66,15 @@
     <img class="pic" src="{{URL::to('/')}}/images/post-img/{{$topic->
     getAllPicPath->first()->imgPath}}"/>
     <div class="pic-des">
-      <p>{{$topic->tName}}</p>
-    </div>
+      <p>
+        {{$topic->tName}}
+        <a href="{{URL::to('/')}}/details?id={{$topic->
+          id}} ">
+          <span class="glyphicon glyphicon-circle-arrow-right"></span>
+        </a>
+      </p>
+      <div class="pic-des-price">{{$topic->tPrice}}.000đ</div>
+    </div>    
   </div>
   @endforeach
 </div>
@@ -84,8 +88,8 @@
 </div>
 <div class="container">
   <div id="gmap_canvas" style="height:500px;width:auto;"></div>
-        <style>#gmap_canvas img{max-width:none;background:none}</style>
-        <script type="text/javascript"> 
+  <style>#gmap_canvas img{max-width:none;background:none}</style>
+  <script type="text/javascript"> 
           function initialize() {
             var myLatlng = new google.maps.LatLng(21.0226967,105.8369637);
             var mapOptions = {
